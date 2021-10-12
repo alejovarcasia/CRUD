@@ -22,7 +22,7 @@
         <div>
             <label name="search" class="row">
             </label>
-            <input type="search" placeholder=" Search users" style="border-radius: 5px">
+            <input type="search" placeholder=" Search users here" style="border-radius: 5px; border: 2px green solid; width: 300px" id="search">
         </div>
         <div class="row">
             <div class="col-md-12 mt-2">
@@ -44,7 +44,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="" method="post" id="form">
+                                <form action="/insert" method="post" id="form">
                                     <div class="form-group">
                                         <label for="">Name</label>
                                         <input type="text" class="form-control" id="name">
@@ -75,7 +75,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form action="" method="post" id="update_form">
+                                <form action="/edit" method="post" id="update_form">
                                     <input type="hidden" id="edit_modal_id">
                                     <div class="form-group">
                                         <label for="">Name</label>
@@ -99,7 +99,7 @@
         <div class="row">
             <div class="col-md-12 mt-3">
                 <table class="table">
-                    <thead>
+                    <thead >
                         <tr>
                             <th>Id</th>
                             <th>Name</th>
@@ -108,8 +108,7 @@
                         </tr>
                     </thead>
                     <tbody id="tbody">
-
-                    </tbody>
+                    </tbody >
                 </table>
             </div>
         </div>
@@ -189,6 +188,20 @@
             }
         });
 
+    });
+
+    $(document).ready(function(){
+        $("#search").keyup(function(){
+        var search = $(this).val();
+        $.ajax({
+            type:"post",
+            url:"<?php echo base_url(); ?>search",
+            data:{query:search},
+            success:function(data){
+              $("#tbody").html(data);
+            }
+        });
+        });
     });
 
     function fetch() {
@@ -397,5 +410,4 @@
     });
     </script>
 </body>
-
 </html>

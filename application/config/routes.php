@@ -10,3 +10,4 @@ $route['insert'] = 'welcome/insert';
 $route['delete'] = 'welcome/delete';
 $route['edit'] = 'welcome/edit';
 $route['update'] = 'welcome/update';
+$route['search'] = 'welcome/search';
