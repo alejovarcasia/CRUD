@@ -106,6 +106,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Action</th>
+                            <th>User</th>
                         </tr>
                     </thead>
                     <tbody id="tbody">
@@ -231,12 +232,11 @@
                     tbody += `<td>
                                     <a href="#" id="del" value="${data[key]['id']}">Delete</a>
                                     <a href="#" id="edit" value="${data[key]['id']}">Edit</a>
-                                </td>`;
+                             </td>`;
+                    tbody += "<td>" + data[key]['user']  + "</td>";
                     tbody += "<tr>";
+                    
                 }
-                // for (let i = 0; i < 9; i++) { {
-
-                // }
 
                 $("#tbody").html(tbody);
     } 
