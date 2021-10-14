@@ -40,15 +40,6 @@ class Welcome extends CI_Controller
 		}
 	}
 
-	public function fetch()
-	{
-		if ($this->input->is_ajax_request()) {
-			$posts = $this->crud_model->get_entries();
-			echo json_encode($posts);
-		} else {
-			echo "'No direct script access allowed'";
-		}
-	}
 
 	public function delete()
 	{
@@ -65,6 +56,17 @@ class Welcome extends CI_Controller
 			echo json_encode($data);
 		}
 	}
+
+	public function fetch()
+	{
+		if ($this->input->is_ajax_request()) {
+			$posts = $this->crud_model->get_entries($this->input->post('query'));
+			echo json_encode($posts);
+		} else {
+			var_dump("'No direct script access allowed'") ;
+		}
+	}
+
 
 	public function edit()
 	{

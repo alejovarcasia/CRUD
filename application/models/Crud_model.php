@@ -3,12 +3,21 @@
 class Crud_model extends CI_Model
 {
 
-    public function get_entries()
+    public function get_entries($name = "")
     {
-        $query = $this->db->get('crud');
-        // if (count($query->result()) > 0) {
-        return $query->result();
-        // }
+        if ($name != '')
+        {
+            $result = $this->db->query("SELECT * FROM crud WHERE name LIKE" . " " . "'%" . "$name" . "%'")->result();
+            echo json_encode($result);exit;
+		}
+        else
+        {
+          
+            $this->db->select('*');
+		    $this->db->from('crud');
+           return $this->db->get()->result();
+        }        
+        
     }
 
     public function insert_entry($data)
@@ -36,4 +45,5 @@ class Crud_model extends CI_Model
     {
         return $this->db->update('crud', $data, array('id' => $data['id']));
     }
+
 }

@@ -20,9 +20,10 @@
             </div>
         </div>
         <div>
-            <label name="search" class="row">
+            <label class="row">
             </label>
-            <input type="search" placeholder=" Search users here" style="border-radius: 5px; border: 2px green solid; width: 300px" id="search">
+            <input type="search" id="search_text" placeholder=" Search users here" style="border-radius: 5px; border: 2px green solid; width: 300px" id="search">
+            
         </div>
         <div class="row">
             <div class="col-md-12 mt-2">
@@ -108,7 +109,7 @@
                         </tr>
                     </thead>
                     <tbody id="tbody">
-                    </tbody >
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -190,28 +191,38 @@
 
     });
 
-    $(document).ready(function(){
-        $("#search").keyup(function(){
-        var search = $(this).val();
-        $.ajax({
-            type:"post",
-            url:"<?php echo base_url(); ?>search",
-            data:{query:search},
-            success:function(data){
-              $("#tbody").html(data);
-            }
-        });
-        });
+    $(document).ready(function()
+            {
+            $("#search_text").keyup(function(){
+                var name = $("#search_text").val();
+                    $.ajax({
+                        type:"post", 
+                        url:"<?php echo base_url(); ?>welcome/fetch",
+                        data:{query:name},
+                        success:function(data)
+                        {
+                            let datos = JSON.parse(data);
+                            listado(datos);
+                        }
+                    });
+            });
     });
 
     function fetch() {
         $.ajax({
             url: "<?php echo base_url(); ?>fetch",
-            type: "get",
+            type: "post",
             dataType: "json",
             success: function(data) {
+                listado(data);
+            }
+        });
+    }
+
+    function listado(data) {
                 var i = 1;
                 var tbody = "";
+                debugger;
                 for (var key in data) {
                     tbody += "<tr>";
                     tbody += "<td>" + i++ + "</td>";
@@ -223,11 +234,12 @@
                                 </td>`;
                     tbody += "<tr>";
                 }
+                // for (let i = 0; i < 9; i++) { {
+
+                // }
 
                 $("#tbody").html(tbody);
-            }
-        });
-    }
+    } 
 
     fetch();
 
